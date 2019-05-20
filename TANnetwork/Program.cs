@@ -18,17 +18,23 @@ namespace TANnetwork
         {
             Dictionary<string, Dictionary<string, double>> graph = new Dictionary<string, Dictionary<string, double>>();
             Dictionary<string, Coordinate> coordinates = new Dictionary<string, Coordinate>();
-
+            Dictionary<string, string> Names = new Dictionary<string, string>();
             CultureInfo culture = CultureInfo.InvariantCulture;
 
             string startPoint = Console.ReadLine();
+            startPoint = startPoint.Split(':')[1];
             string endPoint = Console.ReadLine();
+            endPoint = endPoint.Split(':')[1];
             int N = int.Parse(Console.ReadLine());
             for (int i = 0; i < N; i++)
             {
                 string stopName = Console.ReadLine();
                 string[] information = stopName.Split(',');
+
                 string id = information[0].Split(':')[1];
+                string name = information[1];
+                Names.Add(id, name);
+
                 string latitude = information[3];
                 string longitude = information[4];
                 coordinates.Add(id, new Coordinate()
@@ -53,7 +59,8 @@ namespace TANnetwork
 
                 if (!graph.Keys.Contains(station1))
                 {
-                    graph.Add(station1, new Dictionary<string, double>() { [station2] = dist });
+                    graph.Add(station1, new Dictionary<string, double>());
+                    graph[station1][station2] = dist;
                 }
                 else
                 {
@@ -69,6 +76,15 @@ namespace TANnetwork
                     graph[station2].Add(station1, dist);
                 }
             }
+
+            List<string> Path = PathFinder.Solve(graph, startPoint, endPoint);
+            Path.Reverse();
+            foreach(var p in Path)
+            {
+                Console.WriteLine(Names[p].Replace("\"", ""));
+            }
+
+            return;
         }
     }
 }
