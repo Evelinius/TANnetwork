@@ -1,0 +1,9 @@
+8
+Dom Sbyta;The Blind Squad;5
+Dom Sbyta;Aushan;9
+Dom Sbyta;Kladbishe;20
+Aushan;Kladbishe;2
+Aushan;Ul Veteranov;15
+The Blind Squad;Kladbishe;7
+Kladbishe;Ul Veteranov;3
+The Blind Squad;Aushan;3
